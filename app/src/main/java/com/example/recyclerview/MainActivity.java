@@ -1,5 +1,6 @@
 package com.example.recyclerview;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,17 +22,18 @@ public class MainActivity extends AppCompatActivity {
     private final LinkedList<String> mWordList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
-    // Create an adapter and supply the data to be displayed.
+        // Create an adapter and supply the data to be displayed.
         mAdapter = new WordListAdapter(this, mWordList);
-    // Connect the adapter with the RecyclerView.
+        // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
-    // Give the RecyclerView a default layout manager.
+        // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,10 +71,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_reset) {
+
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+            finish();
             return true;
         }
+            return super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 }
